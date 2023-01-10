@@ -8,6 +8,7 @@ class NoteBody extends StatefulWidget {
 }
 
 class _NoteBodyState extends State<NoteBody> {
+  DateTime date = DateTime(2022, 12, 24);
   List<String> todo = [];
   List<String> subT = [];
 
@@ -94,7 +95,6 @@ class _NoteBodyState extends State<NoteBody> {
             itemCount: todo.length,
             itemBuilder: (BuildContext context, int index) {
               return Container(
-                height: 150,
                 margin: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   color: const Color(0xffFFCC80),
@@ -226,13 +226,25 @@ class _NoteBodyState extends State<NoteBody> {
                         ),
                       ),
                     ),
-                    const Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 30),
-                      child: Text(
-                        '12/1/2023',
-                        style: TextStyle(
-                          color: Colors.black,
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: InkWell(
+                        onTap: (() async {
+                          DateTime? newDate = await showDatePicker(
+                            context: context,
+                            initialDate: date,
+                            firstDate: DateTime(1900),
+                            lastDate: DateTime(2100),
+                          );
+                          //  if 'CANCEL' => null
+                          if (newDate == null) return;
+
+                          //  if 'COK' => null
+                          setState(() => date = newDate);
+                        }),
+                        child: Text(
+                          '${date.day}/${date.month}/${date.year}',
+                          style: const TextStyle(color: Colors.black),
                         ),
                       ),
                     ),

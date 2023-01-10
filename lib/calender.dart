@@ -37,7 +37,7 @@ class _CalenderState extends State<Calender> {
               //  if 'CANCEL' => null
               if (newDate == null) return;
 
-              //  if 'CANCEL' => null
+              //  if 'COK' => null
               setState(() => date = newDate);
             }),
             child: const Text('Choose Date'),
